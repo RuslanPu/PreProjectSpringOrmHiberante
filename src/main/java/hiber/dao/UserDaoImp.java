@@ -46,11 +46,14 @@ public class UserDaoImp implements UserDao {
    @Override
    public User getUserByCar(String carName, String carSeries) {
       if (isExistCar(carName,carSeries)) {
-            List<Car> listCar= new ArrayList<>();
-            listCar = listCar().stream()
-                    .filter((e)->e.getName().equals(carName) && e.getSeries().equals(carSeries))
-                    .collect(Collectors.toList());
-            Long carId = listCar.get(0).getId();
+         List<Car> carsList = new ArrayList<>();
+
+         carsList = sessionFactory.getCurrentSession().createQuery("From Car Where name = :paramName and series = :paramSeries")
+                    .setParameter("paramName",carName)
+                    .setParameter("paramSeries",carSeries)
+                    .list();
+
+         Long carId = new Long(carsList.get(0).getId());
 
          List listUser = new ArrayList<>();
            listUser = sessionFactory.getCurrentSession().createQuery("FROM User WHERE car_id = :paramId")

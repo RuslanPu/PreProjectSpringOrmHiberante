@@ -99,4 +99,24 @@ public class User {
    public int hashCode() {
       return Objects.hash(id, firstName, lastName);
    }
+
+   @Override
+   public String toString() {
+      String carName;
+      String carSeries;
+      if (car!=null) {
+        carName = car.getName();
+        carSeries = car.getSeries();
+      } else {
+        carName = "haven't car";
+        carSeries = "haven't car";
+      }
+      return "User" +
+              "id = " + id +
+              ", firstName = '" + firstName + '\'' +
+              ", lastName = '" + lastName + '\'' +
+              ", email = '" + email + '\'' +
+              ", car { = " + carName +  " " + carSeries + '}' +
+              '\n';
+   }
 }
